@@ -47,15 +47,13 @@
 
     .content__container__list {
         list-style: none;
-
-        animation-name: change;
-        animation-duration: 20s;
-        animation-iteration-count: infinite;
     }
 
     .content__container__list__item {
         margin: 0;
-        line-height: 40px;
+        line-height: 25px;
+        padding-top: 4px;
+        padding-bottom: 4px;
     }
 
      
@@ -65,28 +63,32 @@
     <div class="w-full sm:w-auto self-start sm:self-center flex flex-row sm:flex-none flex-no-wrap justify-between items-center">
         
     </div>
-    <div id="menu" class="w-full sm:w-auto self-end sm:self-center hidden sm:flex flex-col sm:flex-row items-center h-full py-1 pb-4 sm:py-0 sm:pb-0">
-        <a class="text-gray-800 border border-indigo-800 text-lg bg-gray-100 rounded-full w-auto no-underline text-center sm:text-left hover:border-pink-600 hover:text-pink-600 hover:bg-white hover:shadow-md px-6 py-1 my-2 sm:my-0 sm:ml-4" href="#register">Register Now</a>
-    </div>
+    
 </nav>
-    <div class="flex flex-col justify-center h-full py-12">
+    <div class="flex flex-col justify-center">
         <div class="self-center items-center flex flex-col sm:flex-row w-full md:w-5/6 xl:w-2/3 px-4 sm:px-0">
-            <div class="w-full text-center sm:text-left sm:w-1/2 py-12 sm:px-8">
-                <h1 class="tracking-wide text-pink-600 text-2xl mb-6">New Thing: <span class="text-gray-800 font-bold tracking tracking-widest">AWE.SOME</span></h1>
-                <h2 class="font-bold tracking-widest text-4xl">Texto...</h1>
-                <span class="content__container block font-light text-browngray text-2xl my-6">
+            <div class="w-full text-center sm:text-left sm:w-3/4 py-12 sm:px-8">
+                <h1 class="tracking-wide text-pink-600 text-xl mb-6">Quer receber em dólar e achou complicado?<span class="text-gray-800 font-bold tracking tracking-widest"></span></h1>
+                <h2 class="font-bold tracking-widest text-2xl">A gente sabe como é.<h2>
                     <ul class="content__container__list">
-                        <li class="content__container__list__item xl:pl-3">Cool Feature</li>
+                        <li class="content__container__list__item xl:pl-3">
+                            A <b>blah</b> nasceu pra fazer isso virar história pra você.
+                        </li>
+                        <li class="content__container__list__item xl:pl-3">
+                            Nosso trabalho é abrir o caminho - da documentação à conta bancária, das notas fiscais à transferência do seu dinheiro pro Brasil. Nós sabemos como é desafiador receber desse jeito, principalmente quando parece que ninguém conhece o caminho.
+                        </li>
+                        <li class="content__container__list__item xl:pl-3">
+                            Essas experiências nos trouxeram aqui - com uma equipe preparada para entender de tudo que parece complicado nessas horas. A gente sabe que você já tem outras coisas pra se preocupar.
+                        </li>
                     </ul>
-                </span>
-                <p class="font-bold tracking-widest text-4xl">...aqui!</p>
+                <p class="font-bold tracking-widest text-2xl text-right">Deixa a burocracia com a gente.</p>
             </div>
             <div class="w-full sm:w-1/2">
                 <img src="/img/undraw_Friends_online_re_r7pq.svg" alt="AWE.SOME header">
             </div>
         </div>
     </div>
-    <div class="flex flex-row w-full justify-center pb-12">
+    <div class="flex flex-row w-full h-full justify-center pb-12">
         <a class="px-10 py-2 text-gray-200 bg-pink-600 rounded-full shadow-md text-lg hover:bg-gray-800 hover:border-red" href="#register">Registrar</a>
     </div>
 </div>
@@ -95,12 +97,12 @@
 
 <div id="register" class="w-full min-h-screen flex flex-col justify-center items-center bg-gray-800">
     <div class="self-center text-center w-full xl:w-1/3 px-4 sm:px:0">
-        <h2 class="font-bold tracking-widest text-gray-200 text-4xl mb-4">Registration</h2>
+        <h2 class="font-bold tracking-widest text-gray-200 text-4xl mb-4">Registre-se</h2>
         <div class="font-light text-gray-400 text-xl">
-            <p>Maecenas pulvinar ultricies dolor, vitae sagittis nunc aliquam non. Cras vitae eros mi.</p>
+            <p>Assine a lista de espera para as próximas vagas!</p>
 
         </div>
-        <form class="w-full max-w-lg my-20 mx-auto" action="#" method="post" id="registration-form" target="_blank" validate>
+        <form class="w-full max-w-lg my-20 mx-auto" action="https://gmail.us21.list-manage.com/subscribe/post?u=d228870e14c1bf767cae22402&amp;id=19c2116179&amp;f_id=009ddde6f0" method="post" id="registration-form" target="_blank" validate>
             <div class="flex items-center border-b border-pink-600 py-2">
                 <input class="appearance-none bg-transparent border border-transparent w-full text-gray-200 focus:outline-none focus:bg-gray-400 focus:text-gray-800 focus:border-gray-400 mr-3 py-2 px-3" type="email" value="" name="EMAIL" placeholder="joão.silva@google.com" aria-label="Email Address" required>
                 <button class="flex-shrink-0 bg-pink-600 border-pink-600 hover:bg-gray-800 hover:text-pink-600 border text-gray-200 py-2 px-4" type="submit" name="subscribe">
