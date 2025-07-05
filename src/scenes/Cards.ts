@@ -5,8 +5,11 @@ export default class Cards extends PIXI.Container implements Scene {
   app?: PIXI.Application;
   cards: Array<PIXI.Sprite> = [];
   totalCards = 144;
-  textureFront = PIXI.Texture.from('cardfront');
-  textureBack = PIXI.Texture.from('cardback');
+
+  cardTextureFront = PIXI.Texture.from('cardfront');
+  cardTextureBack = PIXI.Texture.from('cardback');
+  cardFrontTint = 'FFFFFF'; // White
+  cardBackTint = '770077'; // Purple
 
   constructor() {
     super();
@@ -35,36 +38,47 @@ export default class Cards extends PIXI.Container implements Scene {
    * @returns PIXI.Sprite, which is the instantiated card.
    */
   private makeSingleCard(i: number): PIXI.Sprite {
-    const card = PIXI.Sprite.from(this.textureFront);
+    const app = this.app as PIXI.Application;
+    const card = PIXI.Sprite.from(this.cardTextureFront);
     const originX = GAME_WIDTH / 2 - 200 - (i / 8);
     const originY = 250 + i;
-
-    const app = this.app as PIXI.Application;
+    const movementDuration = 120;
+    const interval = movementDuration / 2
 
     card.anchor.set(0.5);
     card.x = originX;
     card.y = originY;
 
     let timer = 0;
-    const delay = 60 + 60 * (this.totalCards - i);
+    const delay = interval + interval * (this.totalCards - i);
 
     const move = (delta: number) => {
       timer += delta;
+      const deltaT = timer - delay;
+      const adjustedX = 200 - i / 8;
+      const adjustedY = 200;
 
-      if (timer > delay + 120) {
-        card.zIndex = -i;
+      // Movement should end after 2s, cleaning up the ticker function.
+      if (deltaT > movementDuration) {
         app.ticker.remove(move);
-      } else if (timer > delay) {
-        const deltaT = timer - delay;
-        const adjustedX = 200 - i / 8;
-        const adjustedY = 100 + i;
-
-        card.x = originX + Math.min((adjustedX * deltaT) / 60, 400);
-        card.y = originY + Math.min((adjustedY * deltaT) / 60, 800);
+        card.zIndex = -i;
         
-        card.tint = timer > delay + 60 ? '770077' : 'FFFFFF';
-        card.texture = timer > delay + 60 ? this.textureBack : this.textureFront;
-        card.scale.x = Math.abs(Math.cos(deltaT / 40));
+        // Hard setting variables at the end to make sure movement
+        // is displayed properly regardless of FPS and performance.
+        card.scale.x = 1;
+        card.x = originX + adjustedX * 2;
+        card.y = originY + adjustedY * 2;
+      } else if (deltaT > 0) {
+        const deltaT = timer - delay;
+
+        // Moves cards based on interval of time, flipping them halfway
+        // through, which also changes texture and tints the object.
+        card.x = originX + (adjustedX * deltaT) / interval;
+        card.y = originY + (adjustedY * deltaT) / interval;
+        
+        card.tint = timer > delay + interval ? this.cardBackTint : this.cardFrontTint;
+        card.texture = timer > delay + interval ? this.cardTextureBack : this.cardTextureFront;
+        card.scale.x = Math.abs(Math.cos(deltaT / (movementDuration / 3)));
       }
     };
 
