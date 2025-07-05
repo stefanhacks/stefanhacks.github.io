@@ -22,9 +22,10 @@
     "author": "yordan.kanchelov",
     "license": "MIT",
     "dependencies": {
-        "@esotericsoftware/spine-pixi-v8": "^4.2.76",
+        "@esotericsoftware/spine-pixi-v7": "~4.2.0",
+        "@pixi/particle-emitter": "^5.0.8",
         "core-js": "^3.41.0",
-        "pixi.js": "^8.9.1"
+        "pixi.js": "^7.4.2"
     },
     "devDependencies": {
         "@babel/core": "7.26.10",

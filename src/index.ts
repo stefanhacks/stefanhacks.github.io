@@ -1,75 +1,58 @@
-import "./style.css";
-import { Application, Assets, AssetsManifest } from "pixi.js";
-import "@esotericsoftware/spine-pixi-v8";
+import { Application, Assets } from 'pixi.js';
+import SceneManager from './controllers/SceneManager';
+import { GAME_HEIGHT, GAME_WIDTH } from './GameConstants';
+import './style.css';
 
-import { getSpine } from "./utils/spine-example";
-import { createBird } from "./utils/create-bird";
+const app = new Application<HTMLCanvasElement>({
+  width: GAME_WIDTH,
+  height: GAME_HEIGHT,
+});
 
-const gameWidth = 1280;
-const gameHeight = 720;
+/**
+ * Loads whatever assets game still has.
+ * @returns Promise that resolves or rejects based on load status.
+ */
+async function loadGameAssets(): Promise<void> {
+  const manifest = {
+    bundles: [{
+      name: "game-assets",
+      assets: [
+        { name: "cardfront", srcs: './assets/cardfront.png' },
+        { name: "cardback", srcs: './assets/cardback.png' },
+        { name: "particle", srcs: './assets/particle.png' },
+      ],
+    }],
+  };
 
-console.log(
-    `%cPixiJS V8\nTypescript Boilerplate%c ${VERSION} %chttp://www.pixijs.com %c❤️`,
-    "background: #ff66a1; color: #FFFFFF; padding: 2px 4px; border-radius: 2px; font-weight: bold;",
-    "color: #D81B60; font-weight: bold;",
-    "color: #C2185B; font-weight: bold; text-decoration: underline;",
-    //     "color: #ff66a1;",
-);
+  await Assets.init({ manifest });
+  await Assets.loadBundle('game-assets');
+}
 
-(async () => {
-    const app = new Application();
+/**
+ * Resizes canvas based on ratio. Somewhat inconsistent.
+ */
+function resizeCanvas(): void {
+  const resize = () => {
+    const { innerHeight } = window;
+    const scale = innerHeight / GAME_HEIGHT;
+    const width = GAME_WIDTH * scale;
 
-    //await window load
-    await new Promise((resolve) => {
-        window.addEventListener("load", resolve);
-    });
+    app.renderer.resize(width, innerHeight);
+    app.stage.scale.x = width / GAME_WIDTH;
+    app.stage.scale.y = innerHeight / GAME_HEIGHT;
+  };
 
-    await app.init({ backgroundColor: 0xd3d3d3, width: gameWidth, height: gameHeight });
+  resize();
 
-    await loadGameAssets();
+  window.addEventListener("resize", resize);
+}
 
-    async function loadGameAssets(): Promise<void> {
-        const manifest = {
-            bundles: [
-                { name: "bird", assets: [{ alias: "bird", src: "./assets/simpleSpriteSheet.json" }] },
-                {
-                    name: "spineboyData",
-                    assets: [{ alias: "spineboyData", src: "./assets/spine-assets/spineboy-pro.skel" }],
-                },
-                {
-                    name: "spineboyAtlas",
-                    assets: [{ alias: "spineboyAtlas", src: "./assets/spine-assets/spineboy-pma.atlas" }],
-                },
-            ],
-        } satisfies AssetsManifest;
 
-        await Assets.init({ manifest });
-        await Assets.loadBundle(["bird", "spineboyData", "spineboyAtlas", "pixieData", "pixieAtlas"]);
+window.onload = async (): Promise<void> => {
+  await loadGameAssets();
 
-        document.body.appendChild(app.canvas);
+  document.body.appendChild(app.view);
 
-        resizeCanvas();
-
-        const birdFromSprite = createBird();
-
-        birdFromSprite.anchor.set(0.5, 0.5);
-        birdFromSprite.position.set(gameWidth / 2, gameHeight / 4);
-
-        const spineExample = await getSpine();
-
-        app.stage.addChild(birdFromSprite);
-        app.stage.addChild(spineExample);
-    }
-
-    function resizeCanvas(): void {
-        const resize = () => {
-            app.renderer.resize(window.innerWidth, window.innerHeight);
-            app.stage.scale.x = window.innerWidth / gameWidth;
-            app.stage.scale.y = window.innerHeight / gameHeight;
-        };
-
-        resize();
-
-        window.addEventListener("resize", resize);
-    }
-})();
+  resizeCanvas();
+  new SceneManager(app);
+};
