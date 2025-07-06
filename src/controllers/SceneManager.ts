@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import MainMenu from '../scenes/MainMenu';
 import Cards from '../scenes/Cards';
-import Words from '../scenes/Words';
+import MagicWords from '../scenes/MagicWords';
 import Fire from '../scenes/Fire';
 import SWITCH_SCENE from '../scenes/SceneEvents';
 import { BUTTONS, Scene } from '../GameConstants';
@@ -20,7 +20,7 @@ export default class SceneManager {
     this.currentScene.on(SWITCH_SCENE, (target: BUTTONS) => this.switchToScene(target));
 
     this.addNewScene('Card', Cards);
-    this.addNewScene('Word', Words);
+    this.addNewScene('Word', MagicWords);
     this.addNewScene('Fire', Fire);
 
     this.makeCounter();

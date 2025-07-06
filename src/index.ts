@@ -1,4 +1,4 @@
-import { Application, Assets } from 'pixi.js';
+import { Application, Assets, AssetsManifest } from 'pixi.js';
 import SceneManager from './controllers/SceneManager';
 import { GAME_HEIGHT, GAME_WIDTH } from './GameConstants';
 import './style.css';
@@ -13,7 +13,7 @@ const app = new Application<HTMLCanvasElement>({
  * @returns Promise that resolves or rejects based on load status.
  */
 async function loadGameAssets(): Promise<void> {
-  const manifest = {
+  const manifest: AssetsManifest = {
     bundles: [{
       name: "game-assets",
       assets: [

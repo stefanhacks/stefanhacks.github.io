@@ -9,7 +9,7 @@ export default class MainMenu extends PIXI.Container implements Scene {
     fontFamily: 'Arial',
     fontSize: 42,
     fontWeight: 'bold',
-    fill: ['#ffffff', '#dddddd'], // gradient
+    fill: ['#FFFFFF', '#00BBBB'],
     stroke: '#0b2247',
     strokeThickness: 9,
     lineJoin: 'round',
@@ -44,7 +44,6 @@ export default class MainMenu extends PIXI.Container implements Scene {
     button.beginFill(0x42bff5);
     button.drawRect(130, position - 50, GAME_WIDTH - 260, 100);
     button.interactive = true;
-    // button.buttonMode = true;
 
     button.on('pointerup', () => this.emit(SWITCH_SCENE, purpose));
 

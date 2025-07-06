@@ -2,6 +2,7 @@
     "name": "pixi-typescript-boilerplate",
     "version": "1.0.0",
     "description": "pixi.js typescript boilerplate webpack",
+    "homepage": "https://stefanhacks.github.io/stefanhacks.github.io",
     "browserslist": [
         "last 2 versions",
         "not dead",
@@ -13,6 +14,8 @@
         "pnpm": ">=9"
     },
     "scripts": {
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d dist",
         "webpack": "webpack",
         "start": "webpack-dev-server -- --env mode=development",
         "prebuild": "npx rimraf dist",
@@ -46,6 +49,7 @@
         "eslint-plugin-import": "^2.31.0",
         "eslint-plugin-prettier": "^5.2.6",
         "eslint-webpack-plugin": "^5.0.0",
+        "gh-pages": "^6.3.0",
         "html-webpack-plugin": "^5.6.3",
         "mini-css-extract-plugin": "^2.9.2",
         "prettier": "^3.5.3",
